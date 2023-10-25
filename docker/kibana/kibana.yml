@@ -1,0 +1,7 @@
+elasticsearch.hosts: http://192.168.80.20:9200
+elasticsearch.username: kibana
+elasticsearch.password: kibana
+server.host: "0.0.0.0"
+server.name: kibana
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+i18n.locale: zh-CN
