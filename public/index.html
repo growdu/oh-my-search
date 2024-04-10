@@ -25,6 +25,11 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>doc_index</title>
+    </head>
+
+    <h1>访问次数统计</h1>
+
+    <p>当前访问次数: <span id="visitCount">加载中...</span></p>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -41,3 +46,30 @@
     -->
   </body>
 </html>
+
+<script>
+window.onload = function() {
+  // 创建 XMLHttpRequest 对象
+  var xhr = new XMLHttpRequest();
+
+  // 配置请求
+  xhr.open("GET", "http://192.168.80.20:9999/visit", true);
+
+  // 注册回调函数处理响应
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText);
+            var visitCount = data.visit;
+            document.getElementById('visitCount').textContent = visitCount;
+        } else {
+            console.error('Failed to fetch visit count:', xhr.status);
+            document.getElementById('visitCount').textContent = '获取失败';
+        }
+    }
+  };
+
+  // 发送请求
+  xhr.send();
+};
+</script>
