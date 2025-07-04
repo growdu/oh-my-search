@@ -8,7 +8,7 @@ import {
   SearchProvider,
   Results,
   SearchBox,
-  //Sorting
+  Sorting // 修复：导入Sorting组件
 } from "@elastic/react-search-ui";
 import { Layout } from "@elastic/react-search-ui-views";
 import "@elastic/react-search-ui-views/lib/styles/styles.css";
