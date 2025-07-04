@@ -1,5 +1,5 @@
 // Step #1, import statements
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ElasticsearchAPIConnector from "@elastic/search-ui-elasticsearch-connector";
 import {
   PagingInfo,
@@ -66,11 +66,38 @@ const configurationOptions = {
 };
  
 export default function App() {
+  const [searchCount, setSearchCount] = useState(0);
+
+  // 页面加载时获取累计计数
+  useEffect(() => {
+    fetch("/api/search-count")
+      .then(res => res.json())
+      .then(data => setSearchCount(data.count || 0));
+  }, []);
+
+  // 查询时远程+1
+  const handleSearch = () => {
+    fetch("/api/increment-search-count", { method: "POST" })
+      .then(res => res.json())
+      .then(data => setSearchCount(data.count));
+  };
+
+  const customSearchBox = (
+    <SearchBox
+      searchFields={["title", "author"]}
+      onSubmit={handleSearch}
+    />
+  );
+
   return (
     <SearchProvider config={configurationOptions}>
-      <div className="App">
+      <div className="App" style={{ position: 'relative' }}>
+        {/* 查询次数显示在右上角 */}
+        <div style={{ position: 'absolute', top: 10, right: 20, zIndex: 10, background: '#fff', padding: '6px 16px', borderRadius: 16, boxShadow: '0 1px 4px #eee', fontWeight: 'bold' }}>
+          查询次数：{searchCount}
+        </div>
         <Layout
-          header={<SearchBox searchFields={["title", "author"]} />}
+          header={customSearchBox}
           bodyContent={
             <Results
               titleField="title"
