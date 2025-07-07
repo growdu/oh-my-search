@@ -16,7 +16,7 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 // Step #2, The connector
 const connector = new ElasticsearchAPIConnector({
   host: "http://192.168.80.21:9200",
-  apiKey: "SW1tTDQ1Y0JVaW5CUi0wZlF4eXk6dlcyVnRoODVTUTZlRDlhRDVsOVFDdw==",
+  //apiKey: "RVZUUDQ1Y0JrTkhWZGhWWkNpWFo6OGFrY0xOellRWENQRUpNMm9ERlVHQQ==",
   index: "doc_index"
 });
  
@@ -102,15 +102,18 @@ export default function App() {
             <Results
               titleField="title"
               urlField="url"
-              view={({ result }) => (
-                <div style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
-                  <div><strong>文件名:</strong> {result.title?.raw || result.title?.snippet}</div>
-                  <div><strong>作者:</strong> {result.author?.raw}</div>
-                  <div><strong>修改时间:</strong> {result.date?.raw}</div>
-                  <div><strong>路径:</strong> {result.path?.raw}</div>
-                  <div><strong>URL:</strong> {result.url?.raw || result.url?.snippet}</div>
-                </div>
-              )}
+              view={({ result }) => {
+                if (!result) return null;
+                return (
+                  <div style={{ borderBottom: '1px solid #eee', padding: '8px 0' }}>
+                    <div><strong>文件名:</strong> {result.title?.raw || result.title?.snippet}</div>
+                    <div><strong>作者:</strong> {result.author?.raw}</div>
+                    <div><strong>修改时间:</strong> {result.date?.raw}</div>
+                    <div><strong>路径:</strong> {result.path?.raw}</div>
+                    <div><strong>URL:</strong> {result.url?.raw || result.url?.snippet}</div>
+                  </div>
+                );
+              }}
             />
           }
           sideContent={
