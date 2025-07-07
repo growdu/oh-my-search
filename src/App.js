@@ -34,7 +34,7 @@ export default function App() {
     <SearchProvider config={config}>
       <Layout
         header={<SearchBox searchFields={["title", "author"]} />}
-        bodyContent={<Results titleField="title" />}
+        bodyContent={<Results titleField="title" urlField="url"/>}
         sideContent={
           <Sorting
             label="排序方式"

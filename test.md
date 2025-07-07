@@ -19,7 +19,7 @@ PUT doc_index
   "mappings": {
     "properties": {
       "title":    { "type": "text", "analyzer": "ik_max_word", "search_analyzer": "ik_max_word", "fields": { "keyword": { "type": "keyword" } } },
-      "author":   { "type": "keyword" },
+      "author":   { "type": "text", "analyzer": "ik_max_word", "search_analyzer": "ik_max_word", "fields": { "keyword": { "type": "keyword" } } },
       "date":     { "type": "date", "format": "yyyy-MM-dd||yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis" },
       "path":     { "type": "keyword" },
       "url":      { "type": "keyword" },
