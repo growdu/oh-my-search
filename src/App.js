@@ -15,8 +15,8 @@ import "@elastic/react-search-ui-views/lib/styles/styles.css";
 
 // Step #2, The connector
 const connector = new ElasticsearchAPIConnector({
-  host: "http://192.168.80.20:9200",
-  apiKey: "WjUxNVpZc0JTb3pYN2J6cEdqRHQ6R3Y0all0R1dTai1LSjhqMGc5THFVdw==",
+  host: "http://192.168.80.21:9200",
+  apiKey: "SW1tTDQ1Y0JVaW5CUi0wZlF4eXk6dlcyVnRoODVTUTZlRDlhRDVsOVFDdw==",
   index: "doc_index"
 });
  

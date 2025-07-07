@@ -11,10 +11,10 @@
 ```shell
 mkdir elasticsarch
 cd elasticsarch
-mkdir -p /es/plugins
-mkdir -p /es/data
-mkdir -p /es/logs
-mkdir -p /es/config
+mkdir -p es/plugins
+mkdir -p es/data
+mkdir -p es/logs
+mkdir -p es/config
 vim docker-compose.yml
 ```
 编辑docker-compose.yml文件，内容如下：
@@ -214,6 +214,45 @@ LICENSE.txt  NOTICE.txt  README.txt  bin  config  data  logs  node  node_modules
 kibana@fce2ab8aec1e:~$ bin/kibana-verification-code 
 Your verification code is:  042 943 
 ```
+
+### 安装中文分词插件（以ik为例，适配Elasticsearch 8.9.0）
+
+1. 在有网络的电脑上下载插件 zip 包：
+   
+   访问 [https://github.com/medcl/elasticsearch-analysis-ik/releases](https://github.com/medcl/elasticsearch-analysis-ik/releases)
+   
+   或直接下载：
+   ```bash
+   wget https://release.infinilabs.com/analysis-ik/stable/elasticsearch-analysis-ik-8.9.0.zip
+   ```
+
+2. 将 zip 包拷贝到 Elasticsearch 服务器（如 /tmp 目录）：
+   
+   可以用 scp、ftp、U盘等方式传输。
+
+3. 在服务器上安装插件：
+   
+   ```bash
+   ./bin/elasticsearch-plugin install file:///tmp/elasticsearch-analysis-ik-8.9.0.zip
+   ```
+   > 注意：file:/// 后面是 zip 包的绝对路径。
+
+4. 重启 Elasticsearch 服务：
+   
+   ```bash
+   systemctl restart elasticsearch
+   # 或
+   ./bin/elasticsearch restart
+   ```
+
+   docker容器就重启docker。
+
+   ```shell
+   docker restart elasticsearch
+   ```
+
+5. 安装后可用 `GET _cat/plugins` 验证插件是否生效。
+
 
 ## 搭建search-ui
 
